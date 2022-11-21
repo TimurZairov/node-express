@@ -2,6 +2,11 @@ const express = require('express')
 const path = require('path')
 const exphbs = require('express-handlebars')
 
+//routes
+const homeRoutes = require('./routes/home')
+const coursesRoutes = require('./routes/courses')
+const addRoutes = require('./routes/add')
+
 const app = express()
 //config handlebars | layout and ext.name "hbs"
 const hbs = exphbs.create({
@@ -17,31 +22,14 @@ app.set('views', 'views')
 
 //как использовать статические файлы например сss
 app.use(express.static('public'))
+//для обработки запроса со страницы что бы правильно приходили данные в нужном формате
+app.use(express.urlencoded({extended: true}))
 
+//render pages || routes register
+app.use('/', homeRoutes)
+app.use('/courses', coursesRoutes)
+app.use('/add', addRoutes)
 
-//render pages
-app.get('/', (req, res) => {
-    res.status(200)
-        //вторым параметром добавляем для каждой страницы нужные нам элементы title и булен свойтсва для активных страниц
-    res.render('index', {
-        title: "Главная страница",
-        isHome: true
-    })
-})
-
-app.get('/courses', (req, res) => {
-    res.render('courses', {
-        title: "Курсы",
-        isCourses: true
-    })
-})
-
-app.get('/add', (req, res) => {
-    res.render('add', {
-        title: "Добавить курс",
-        isAdd: true
-    })
-})
 const PORT = process.env.PORT || 3000
 
 app.listen(PORT, () => {
