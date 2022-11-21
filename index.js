@@ -16,6 +16,9 @@ app.set('view engine', 'hbs')
 app.set('views', 'views')
 
 
+//как использовать статические файлы
+app.use(express.static('public'))
+
 
 //render pages
 app.get('/', (req, res) => {
