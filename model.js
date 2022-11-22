@@ -1,5 +1,6 @@
 const fs = require('fs')
 const path = require('path')
+const { v4: uuidv4 } = require('uuid');
 
 // es6 классы
 class Course {
@@ -7,7 +8,7 @@ class Course {
         this.title = title
         this.price = price
         this.img = img
-        this.id = null
+        this.id = uuidv4()
     }
 
     newCourse() {
@@ -15,7 +16,8 @@ class Course {
         return {
             title: this.title,
             price: this.price,
-            img: this.img
+            img: this.img,
+            id: this.id
         }
     }
 
