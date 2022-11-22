@@ -1,5 +1,5 @@
 const {Router} = require('express')
-
+const Course = require('../model')
 const router = Router()
 
 router.get('/', (req,res) => {
@@ -9,10 +9,12 @@ router.get('/', (req,res) => {
     })
 })
 
-router.post('/', (req, res) => {
-    console.log(req.body)
-
-    res.redirect('/')
+router.post('/', async (req, res) => {
+    const course = new Course(req.body.title, req.body.price, req.body.img)
+    // работа с классами
+    await course.save()
+    //если не сделать редирект получится многоразовая запись.
+    res.redirect('/courses')
 })
 
 module.exports = router
