@@ -1,6 +1,6 @@
 const fs = require('fs')
 const path = require('path')
-const { v4: uuidv4 } = require('uuid');
+const {v4: uuidv4} = require('uuid');
 
 // es6 классы
 class Course {
@@ -38,6 +38,7 @@ class Course {
             )
         })
     }
+
     // все курсы | вызов фунции происходит в save(), каждый раз вызывается после добавления нового курса
     static getAll() {
         //считываение с фала data.json | кодировка | пути
@@ -54,9 +55,27 @@ class Course {
         })
     }
 
-     static async findById(id) {
+    static async findById(id) {
         const courses = await Course.getAll()
         return courses.find(item => item.id === id)
+    }
+    //редактируем курс
+    static async edit(course) {
+        const courses = await Course.getAll()
+        const indexCourse = courses.findIndex(item => item.id === course.id)
+        courses[indexCourse] = course
+        return new Promise((resolve, reject) => {
+            fs.writeFile(path.join(__dirname, 'data', 'data.json'),
+                JSON.stringify(courses),
+                (err) => {
+                    if (err) {
+                        reject(err)
+                    } else {
+                        resolve()
+                    }
+                }
+            )
+        })
     }
 }
 
