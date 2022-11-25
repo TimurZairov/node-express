@@ -18,6 +18,12 @@
                 <li><a href="/add">Добавить курс</a></li>
             {{/if}}
 
+            {{#if isAdd}}
+                <li class="active"><a href="/cart">Корзина</a></li>
+            {{else}}
+                <li><a href="/cart">Корзина</a></li>
+            {{/if}}
+
         </ul>
     </div>
 </nav>
