@@ -13,14 +13,19 @@ router.post('/add', async (req, res) => {
 })
 
 //роут самой корзины
-router.get('/',   async (rea, res ) => {
+router.get('/',   async (req, res ) => {
     const courses = await Cart.fetch()
     res.render('cart' , {
         title: "Корзина",
         isCart: true,
         courses
     })
-    console.log(courses)
+})
+//удаление курса
+router.post('/remove', async (req, res) => {
+    const course = await Course.findById(req.body.id)
+    await Cart.remove(course)
+    res.redirect('/cart')
 })
 
 module.exports = router

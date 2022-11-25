@@ -1,7 +1,5 @@
-const cart = require('../data/cart.json')
 const path = require('path')
 const fs = require('fs')
-const e = require("express");
 
 class Cart {
 //все курсы на странице корзины
@@ -34,11 +32,40 @@ class Cart {
             course.count = 1
             cartCourses.courses.push(course)
         }
+        //цена курсов
+        cartCourses.price += +course.price
+        console.log()
         return new Promise((resolve, reject) => {
             fs.writeFile(path.join(__dirname, '..', 'data', 'cart.json'), JSON.stringify(cartCourses), (err) => {
                 if (err) {
                     reject(err)
                 } else {
+                    resolve()
+                }
+            })
+        })
+
+    }
+    //удаление курса или убрать количство курсов при необходимоси
+    static async remove(course){
+
+        const cartCourses = await Cart.fetch()
+        const idx = cartCourses.courses.findIndex(i => i.id === course.id)
+        const candidate = cartCourses.courses[idx]
+        if(candidate.count > 1) {
+            candidate.count--
+            cartCourses.courses[idx] = candidate
+        }else if(candidate.count === 1){
+            const idCourse = cartCourses.courses.filter(item => item.id !== course.id)
+            cartCourses.courses = idCourse
+        }
+        //пересчитать курс
+        cartCourses.price -= course.price
+        return new Promise((resolve, reject) => {
+            fs.writeFile(path.join(__dirname, '..', 'data', 'cart.json'), JSON.stringify(cartCourses), (err) => {
+                if(err) {
+                    reject(err)
+                }else{
                     resolve()
                 }
             })

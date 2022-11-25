@@ -1,1 +1,33 @@
 <h2>Корзина</h2>
+{{#if courses.courses.length}}
+    <table>
+        <thead>
+        <tr>
+            <th>Название курса</th>
+            <th>Колчество</th>
+            <th>Цена</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {{#each courses.courses}}
+            <tr>
+                <td>{{title}}</td>
+                <td>{{count}}</td>
+                <td>{{price}}</td>
+                <td>
+                    <form action="/cart/remove" method="post">
+                        <input type="hidden" name="id" value="{{id}}">
+                        <button type="submit" class="btn btn-primary">Удалить курс {{title}}</button>
+                    </form>
+                </td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+    <h3>Итого: {{courses.price}} руб</h3>
+
+
+{{else}}
+    <p>Корзина пуста</p>
+{{/if}}
