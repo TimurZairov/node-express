@@ -1,5 +1,7 @@
 const express = require('express')
-const path = require('path')
+//подключаем mongoose
+const mongoose = require('mongoose')
+//плдключение handlebars
 const exphbs = require('express-handlebars')
 
 //routes
@@ -34,6 +36,25 @@ app.use('/cart', cartRoutes)
 
 const PORT = process.env.PORT || 3000
 
-app.listen(PORT, () => {
-    console.log(`Server is started on ${PORT}`)
-})
+//подключить функцию старт promise
+
+
+const password = 12512500
+const url = `mongodb+srv://admin:${password}@cluster0.rociosw.mongodb.net/?retryWrites=true&w=majority`
+
+async function start() {
+    try{
+        await mongoose.connect(url, {useNewUrlParser: true})
+        app.listen(PORT, () => {
+            console.log(`Server is started on ${PORT}`)
+        })
+
+    }catch (e) {
+        console.log(e)
+    }
+}
+
+start()
+
+
+
