@@ -43,8 +43,6 @@ app.use('/cart', cartRoutes)
 const PORT = process.env.PORT || 3000
 
 //подключить функцию старт promise
-
-
 const password = 12512500
 const url = `mongodb+srv://admin:${password}@cluster0.rociosw.mongodb.net/shop`
 

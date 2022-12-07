@@ -1,10 +1,9 @@
 const {Router} = require('express')
 const Course = require('../models/courses')
 
-
-
-
 const router = Router()
+
+
 //все курсы
 router.get('/', async (req, res) => {
 
@@ -66,6 +65,11 @@ router.post('/edit', async (req, res) => {
     }
 })
 //удалегние курса
+router.post('/remove', async (req, res) => {
+    const id = req.body.id
+    const courseToRemove = await Course.findByIdAndRemove(id)
+    res.redirect('/courses')
+})
 
 
 
