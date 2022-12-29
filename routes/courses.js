@@ -8,7 +8,8 @@ const router = Router()
 router.get('/', async (req, res) => {
 
     try {
-        const courses = await Course.find()
+        const courses = await Course.find().populate('userId')
+        console.log(courses)
         res.render('courses', {
             title: "Курсы",
             isCourses: true,
