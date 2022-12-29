@@ -8,7 +8,9 @@ const router = Router()
 router.get('/', async (req, res) => {
 
     try {
-        const courses = await Course.find().populate('userId')
+        const courses = await Course.find()
+            .populate('userId', 'email name')
+            .select('price title img')
         console.log(courses)
         res.render('courses', {
             title: "Курсы",
