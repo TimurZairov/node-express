@@ -34,7 +34,6 @@ class Cart {
         }
         //цена курсов
         cartCourses.price += +course.price
-        console.log()
         return new Promise((resolve, reject) => {
             fs.writeFile(path.join(__dirname, '..', 'data', 'cart.json'), JSON.stringify(cartCourses), (err) => {
                 if (err) {
