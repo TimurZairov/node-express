@@ -11,7 +11,8 @@ router.get('/', async (req, res) => {
         const courses = await Course.find()
             .populate('userId', 'email name')
             .select('price title img')
-        console.log(courses)
+        // пока лог оставить что бы не забыть и вмдеть как это я сделал
+        // console.log(courses)
         res.render('courses', {
             title: "Курсы",
             isCourses: true,
@@ -67,10 +68,10 @@ router.post('/edit', async (req, res) => {
         console.log(err)
     }
 })
-//удалегние курса
+//удаление курса
 router.post('/remove', async (req, res) => {
     const id = req.body.id
-    const courseToRemove = await Course.findByIdAndRemove(id)
+    await Course.findByIdAndRemove(id)
     res.redirect('/courses')
 })
 

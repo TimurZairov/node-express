@@ -27,4 +27,28 @@ const userSchema = new Schema({
     }
 })
 
+//методы схемы
+//используем function что бы сохранить контекст this
+userSchema.methods.addToCart = function (course) {
+    const clonedItems = [...this.cart.items]
+    const idx = clonedItems.findIndex(c => {
+        return c.courseId.toString() === course.id.toString()
+    })
+    console.log(idx)
+    if(idx < 0) {
+        //если нет в массиве такого курса то добавляем курс со значениями...
+        clonedItems.push({
+            courseId: course._id,
+            count: 1
+        })
+    }else {
+        //если есть, увеличиваем count курса...
+        clonedItems[idx].count = clonedItems[idx].count + 1
+    }
+
+    this.cart = {items: clonedItems}
+    //обязательно сохранить после всего
+    return this.save()
+}
+
 module.exports = model('User', userSchema)
