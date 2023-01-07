@@ -52,11 +52,14 @@ userSchema.methods.addToCart = function (course) {
 
 userSchema.methods.removeCartItems = function (courseId) {
     console.log(courseId)
+    // копируем масив cart
     let clonedItems = [...this.cart.items]
+    // проверяем есть ли в существующем массиве нужный элемент
     const idx = clonedItems.findIndex(c => {
         console.log(c)
         return c._id.toString() === courseId.toString()
     })
+    // если есть или нет
     if(clonedItems[idx].count === 1) {
         console.log('ok')
         clonedItems = clonedItems.filter( item => {
