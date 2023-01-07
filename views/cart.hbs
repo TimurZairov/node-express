@@ -1,5 +1,5 @@
 <h2>Корзина</h2>
-{{#if courses.courses.length}}
+{{#if courses.length}}
     <table>
         <thead>
         <tr>
@@ -10,11 +10,11 @@
         </thead>
 
         <tbody>
-        {{#each courses.courses}}
+        {{#each courses}}
             <tr>
-                <td>{{title}}</td>
+                <td>{{courseId.title}}</td>
                 <td>{{count}}</td>
-                <td>{{price}}</td>
+                <td>{{courseId.price}}</td>
                 <td>
                     <form action="/cart/remove" method="post">
                         <input type="hidden" name="id" value="{{id}}">
@@ -25,7 +25,7 @@
         {{/each}}
         </tbody>
     </table>
-    <h3>Итого: {{courses.price}} руб</h3>
+    <h3>Итого: {{price}} руб</h3>
 
 
 {{else}}

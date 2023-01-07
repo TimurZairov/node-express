@@ -34,7 +34,6 @@ userSchema.methods.addToCart = function (course) {
     const idx = clonedItems.findIndex(c => {
         return c.courseId.toString() === course.id.toString()
     })
-    console.log(idx)
     if(idx < 0) {
         //если нет в массиве такого курса то добавляем курс со значениями...
         clonedItems.push({
