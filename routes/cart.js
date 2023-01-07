@@ -3,10 +3,12 @@ const Cart = require('../models/cart')
 const Course = require('../models/courses')
 
 const router = Router()
+
+
 // вычитываем стоимость всех курсов
 function cartTotalPrice (price) {
     return price.reduce((acc, curr) => {
-        console.log(curr.courseId.price)
+       /* console.log(curr.courseId.price)*/
         return acc = acc + (curr.courseId.price * curr.count)
     }, 0)
 }
@@ -43,8 +45,11 @@ router.get('/',   async (req, res ) => {
 })
 //удаление курса
 router.post('/remove', async (req, res) => {
-    const course = await Course.findById(req.body.id)
-    await Cart.remove(course)
+    try{
+    await req.user.removeCartItems(req.body.id)
+    }catch (e) {
+        console.log(e)
+    }
     res.redirect('/cart')
 })
 
