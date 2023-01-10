@@ -74,5 +74,10 @@ userSchema.methods.removeCartItems = function (courseId) {
     this.cart = {items: clonedItems}
     return this.save()
 }
+// чистим корзину полсе заказа
+userSchema.methods.clearCart = function (){
+    this.cart= {items: []}
+    return this.save()
+}
 
 module.exports = model('User', userSchema)
