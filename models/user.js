@@ -29,6 +29,7 @@ const userSchema = new Schema({
 
 //методы схемы
 //используем function что бы сохранить контекст this
+// добавляем курс в корзину
 userSchema.methods.addToCart = function (course) {
     const clonedItems = [...this.cart.items]
     const idx = clonedItems.findIndex(c => {
@@ -50,6 +51,8 @@ userSchema.methods.addToCart = function (course) {
     return this.save()
 }
 
+//удаление курса из корзины
+
 userSchema.methods.removeCartItems = function (courseId) {
     console.log(courseId)
     // копируем масив cart
@@ -61,7 +64,6 @@ userSchema.methods.removeCartItems = function (courseId) {
     })
     // если есть или нет
     if(clonedItems[idx].count === 1) {
-        console.log('ok')
         clonedItems = clonedItems.filter( item => {
             return  item._id.toString() !== courseId.toString()
         })

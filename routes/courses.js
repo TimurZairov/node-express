@@ -62,7 +62,7 @@ router.post('/edit', async (req, res) => {
     //удаляем айди что бы ге мешал при редактировании файлов
     delete req.body.id
     try{
-        const course = await Course.findByIdAndUpdate(id, req.body)
+        await Course.findByIdAndUpdate(id, req.body)
         res.redirect('/courses')
     }catch (err){
         console.log(err)

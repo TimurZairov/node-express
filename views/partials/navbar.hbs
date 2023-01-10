@@ -24,6 +24,12 @@
                 <li><a href="/cart">Корзина</a></li>
             {{/if}}
 
+            {{#if isOrders}}
+                <li class="active"><a href="/orders">Покупки</a></li>
+            {{else}}
+                <li><a href="/orders">Покупки</a></li>
+            {{/if}}
+
         </ul>
     </div>
 </nav>
