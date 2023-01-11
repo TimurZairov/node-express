@@ -2,11 +2,22 @@ const {Router} = require('express')
 const Order = require('../models/order')
 const router = Router()
 
-
 router.get('/', async (req, res) => {
+
+    const userOrders = await Order.find()
+    const orders = userOrders.filter(item => {
+        return item.user.userId.toString() === req.user._id.toString()
+    })
+    const courses = await orders?.map(item => {
+        return item.courses.map(item => {
+            return item.course
+        })
+    })
+
     res.render('orders', {
         isOrders: true,
-        title: 'Заказы',
+        title: 'Покупки',
+        courses
     })
 })
 
