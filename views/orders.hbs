@@ -1,21 +1,32 @@
 <h1>Покупки</h1>
-<h3>Заказ номер {{user.id}}</h3>
-<p>Заказ на имя: {{user.name}}</p>
-<p>Ваша почта: {{user.email}}</p>
-<p>Дата заказа: {{user.date}}</p>
-{{#if courses.length}}
 
-    {{#each courses}}
+{{#if orders.length}}
+    {{#each orders}}
+        <h3>Заказ номер {{_id}}</h3>
+        <p>Заказ на имя: {{user.name}}</p>
+        <p>Ваша почта: {{user.userId.email}}</p>
+        <p>Дата заказа: {{date}}</p>
+        <hr>
         <div class="card" style="width: 18rem;">
             <div class="card-body">
-                <h5 class="card-title">{{title}}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">{{price}}</h6>
-                <p class="card-text">Оналйн курс по {{title}}</p>
+                {{#each courses}}
+                    <h5 class="card-title">{{course.title}}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{price}}</h6>
+                    <p class="card-text">Оналйн курс по {{course.title}}</p>
+                {{/each}}
+
             </div>
         </div>
+        <h2>Цена {{price}} руб.</h2>
+
+        <hr>
+        <br>
+
     {{/each}}
+
+
 {{else}}
     <p>Покупок нет</p>
 {{/if}}
 
-<h2>Цена {{user.price}} руб.</h2>
+

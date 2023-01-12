@@ -6,35 +6,25 @@ const router = Router()
 //получаем покупки пользователя с базы данных
 router.get('/', async (req, res) => {
     try {
-        const userOrders = await Order.find()
-        //новый объект для передачи на страницу пользователя (данные пользователя)
-        const user = {
-            name: req.user.name,
-            email: req.user.email,
-            date: userOrders[0].date,
-            price: userOrders[0].courses.reduce((acc, curr) => {
-                return acc = acc + curr.course.price * curr.count
-            }, 0),
-            id: userOrders[0]._id
-        }
+        const userOrders = await Order.find({
+            'user.userId': req.user._id
+        }).populate('user.userId')
 
-        //новый массив для передачи на страницу пользователя (данные о купленных курсах)
-        const courses = []
-        const orders = userOrders.filter(item => {
-            return item.user.userId.toString() === req.user._id.toString()
-        })
-        if(orders){
-            orders.map(item => {
-                item.courses.map(c => {
-                    courses.push(c.course)
-                })
-            })
-        }
+        //новый объект для передачи на страницу пользователя (данные пользователя)
         res.render('orders', {
             isOrders: true,
             title: 'Покупки',
-            courses,
-            user
+            orders: userOrders.map(o => {
+                // _doc полностью распаковывает данные связанные по моделям
+                return {
+                    ...o._doc,
+                    price: o.courses.reduce((acc, curr) => {
+                        console.log(curr.course.price)
+                        console.log(curr.count)
+                        return acc = acc + curr.count * curr.course.price
+                    }, 0)
+                }
+            })
         })
     }catch (e) {
         console.log(e)
