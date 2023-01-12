@@ -1,16 +1,21 @@
 <h1>Покупки</h1>
-
+<h3>Заказ номер {{user.id}}</h3>
+<p>Заказ на имя: {{user.name}}</p>
+<p>Ваша почта: {{user.email}}</p>
+<p>Дата заказа: {{user.date}}</p>
 {{#if courses.length}}
 
     {{#each courses}}
         <div class="card" style="width: 18rem;">
             <div class="card-body">
-                <h5 class="card-title">{{courses.title}}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <h5 class="card-title">{{title}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{price}}</h6>
+                <p class="card-text">Оналйн курс по {{title}}</p>
             </div>
         </div>
     {{/each}}
 {{else}}
     <p>Покупок нет</p>
 {{/if}}
+
+<h2>Цена {{user.price}} руб.</h2>
