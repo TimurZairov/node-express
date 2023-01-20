@@ -1,0 +1,54 @@
+<div class="row">
+    <div class="col s12">
+        <ul class="tabs">
+            <li class="tab col s6"><a class="active" href="#login">Войти в аккаунт</a></li>
+            <li class="tab col s6"><a href="#register">Регистрация</a></li>
+        </ul>
+    </div>
+    <div class="m-t-20">
+        <!--        Login-->
+        <div id="login" class="col s12">
+            <div class="row">
+                <form class="col s12" action="/auth/login#login" method="post">
+                    <div class="row">
+                        <div class="input-field col s6 offset-s3">
+                            <input id="email" type="email" class="validate" required>
+                            <label for="email">Email</label>
+                        </div>
+                        <div class="input-field col s6 offset-s3">
+                            <input id="password" type="password" class="validate" required>
+                            <label for="password">Password</label>
+                        </div>
+                    </div>
+                    <button class="btn col s6 offset-s3" type="submit">Войти</button>
+                </form>
+            </div>
+        </div>
+
+        <!--        Reg-->
+        <div id="register" class="col s12">
+            <div id="login" class="col s12">
+                <div class="row">
+                    <form class="col s12" action="/auth/login#register" method="post">
+                        <div class="row">
+                            <div class="input-field col s6 offset-s3">
+                                <input id="reg-email" type="email" class="validate" required>
+                                <label for="reg-email">Email</label>
+                            </div>
+                            <div class="input-field col s6 offset-s3">
+                                <input id="reg-password" type="password" class="validate" required>
+                                <label for="reg-password">Пароль</label>
+                            </div>
+                            <div class="input-field col s6 offset-s3">
+                                <input id="reg-confirm" type="password" class="validate" required>
+                                <label for="reg-confirm">Еще раз пароль</label>
+                            </div>
+                        </div>
+                        <button class="btn col s6 offset-s3" type="submit">Зарегистрироваться</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

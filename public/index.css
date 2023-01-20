@@ -2,3 +2,10 @@
     padding-left: 30px;
     padding-right: 30px;
 }
+
+.pad {
+    padding: 10px;
+}
+.m-t-20 {
+    margin-top: 20px;
+}

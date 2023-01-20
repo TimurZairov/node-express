@@ -19,8 +19,6 @@ router.get('/', async (req, res) => {
                 return {
                     ...o._doc,
                     price: o.courses.reduce((acc, curr) => {
-                        console.log(curr.course.price)
-                        console.log(curr.count)
                         return acc = acc + curr.count * curr.course.price
                     }, 0)
                 }

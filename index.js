@@ -16,6 +16,7 @@ const coursesRoutes = require('./routes/courses')
 const addRoutes = require('./routes/add')
 const ordersRoutes = require('./routes/orders')
 const cartRoutes = require('./routes/cart')
+const authRotes = require('./routes/auth')
 
 const app = express()
 //config handlebars | layout and ext.name "hbs"
@@ -43,7 +44,7 @@ app.use( async (req, res, next) => {
 
 
 //как использовать статические файлы например сss
-app.use(express.static('public'))
+app.use(express.static(__dirname + '/public'))
 //для обработки запроса со страницы что бы правильно приходили данные в нужном формате
 app.use(express.urlencoded({extended: true}))
 
@@ -53,6 +54,7 @@ app.use('/courses', coursesRoutes)
 app.use('/add', addRoutes)
 app.use('/cart', cartRoutes)
 app.use('/orders', ordersRoutes)
+app.use('/auth', authRotes)
 
 const PORT = process.env.PORT || 3000
 
