@@ -36,16 +36,17 @@ app.engine('hbs', hbs.engine)
 app.set('view engine', 'hbs')
 app.set('views', 'views')
 
-app.use( async (req, res, next) => {
-    //для тестов что бы пока был пользователь и новый котрый внизу не вызывался и не создавался новый пользователь
-    try {
-        const user = await User.findById('63b55765fc37a4c8d200b29e')
-        req.user = user
-        next()
-    }catch (e){
-        console.log(e)
-    }
-})
+
+// app.use( async (req, res, next) => {
+//     //для тестов что бы пока был пользователь и новый котрый внизу не вызывался и не создавался новый пользователь
+//     try {
+//         const user = await User.findById('63b55765fc37a4c8d200b29e')
+//         req.user = user
+//         next()
+//     }catch (e){
+//         console.log(e)
+//     }
+// })
 
 
 //как использовать статические файлы например сss
@@ -81,15 +82,15 @@ async function start() {
         await mongoose.connect(url, {
             useNewUrlParser: true,
         })
-        const candidate = await User.findOne()
-        if(!candidate){
-            const user = new User({
-                email: 'zairovne@gmail.com',
-                name: 'Timur',
-                cart: {items: []}
-            })
-            await user.save()
-        }
+        // const candidate = await User.findOne()
+        // if(!candidate){
+        //     const user = new User({
+        //         email: 'zairovne@gmail.com',
+        //         name: 'Timur',
+        //         cart: {items: []}
+        //     })
+        //     await user.save()
+        // }
         app.listen(PORT, () => {
             console.log(`Server is started on ${PORT}`)
         })
