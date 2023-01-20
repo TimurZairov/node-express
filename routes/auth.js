@@ -9,4 +9,11 @@ router.get('/login', async (req, res) => {
     })
 })
 
+
+//проверка сессий
+router.post('/login', (req, res) => {
+    req.session.isAuthenticated = true
+    res.redirect('/')
+})
+
 module.exports = router

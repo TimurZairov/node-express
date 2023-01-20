@@ -1,4 +1,9 @@
 const express = require('express')
+const session = require('express-session')
+
+//middleware
+const varMiddleware = require('./middleware/variables')
+
 //подключаем mongoose
 const mongoose = require('mongoose')
 //плдключение handlebars
@@ -47,6 +52,14 @@ app.use( async (req, res, next) => {
 app.use(express.static(__dirname + '/public'))
 //для обработки запроса со страницы что бы правильно приходили данные в нужном формате
 app.use(express.urlencoded({extended: true}))
+//настройка session
+app.use(session({
+    secret: 'some secret value',
+    resave: false,
+    saveUninitialized: false
+}))
+app.use(varMiddleware)
+
 
 //render pages || routes register
 app.use('/', homeRoutes)
