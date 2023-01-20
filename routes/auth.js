@@ -9,6 +9,12 @@ router.get('/login', async (req, res) => {
     })
 })
 
+router.get('/logout', (req, res) => {
+    req.session.destroy(() => {
+        res.redirect('/auth/login#login')
+    })
+})
+
 
 //проверка сессий
 router.post('/login', (req, res) => {

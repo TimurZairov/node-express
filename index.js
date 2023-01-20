@@ -58,6 +58,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }))
+//нужен для проверки зашел ли пользователь или нет express-session
 app.use(varMiddleware)
 
 
