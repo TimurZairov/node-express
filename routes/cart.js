@@ -1,5 +1,5 @@
 const {Router} = require('express')
-const Cart = require('../models/cart')
+const auth = require('../middleware/auth')
 const Course = require('../models/courses')
 
 const router = Router()
@@ -15,7 +15,7 @@ function cartTotalPrice (price) {
 
 
 //роут добавить в корзину курс
-router.post('/add', async (req, res) => {
+router.post('/add', auth, async (req, res) => {
     const course = await Course.findById(req.body.id)
     //методы из модели user
     try{
@@ -27,7 +27,7 @@ router.post('/add', async (req, res) => {
 })
 
 //роут самой корзины
-router.get('/',   async (req, res ) => {
+router.get('/', auth, async (req, res ) => {
     try {
         //получаем user из req.user
         //метод populate и указываем путь в виде строки что бы полчуить доступ
@@ -44,7 +44,7 @@ router.get('/',   async (req, res ) => {
     }
 })
 //удаление курса
-router.post('/remove', async (req, res) => {
+router.post('/remove', auth, async (req, res) => {
     try{
     await req.user.removeCartItems(req.body.id)
     }catch (e) {

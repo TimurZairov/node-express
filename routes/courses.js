@@ -1,6 +1,6 @@
 const {Router} = require('express')
 const Course = require('../models/courses')
-
+const auth = require('../middleware/auth')
 const router = Router()
 
 
@@ -39,7 +39,7 @@ router.get('/:id/', async (req, res) => {
 })
 
 // Страница редактирования курса
-router.get('/:id/edit', async (req, res) => {
+router.get('/:id/edit', auth, async (req, res) => {
     //видимо будет защита
     if (!req.query.allow) {
         res.redirect('/courses')
@@ -57,7 +57,7 @@ router.get('/:id/edit', async (req, res) => {
 
 })
 //редактировать курс
-router.post('/edit', async (req, res) => {
+router.post('/edit', auth, async (req, res) => {
     const id = req.body.id
     //удаляем айди что бы ге мешал при редактировании файлов
     delete req.body.id
@@ -69,7 +69,7 @@ router.post('/edit', async (req, res) => {
     }
 })
 //удаление курса
-router.post('/remove', async (req, res) => {
+router.post('/remove', auth, async (req, res) => {
     const id = req.body.id
     await Course.findByIdAndRemove(id)
     res.redirect('/courses')
