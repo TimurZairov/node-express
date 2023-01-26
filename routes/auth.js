@@ -19,7 +19,7 @@ router.get('/logout', (req, res) => {
 //проверка сессий
 router.post('/login', async (req, res) => {
     try {
-        //наъодим пользователя и сохраням  в req.session.user
+        //находим пользователя и сохраням  в req.session.user
         const user = await User.findById('63b55765fc37a4c8d200b29e')
         req.session.user = user
         req.session.isAuthenticated = true
