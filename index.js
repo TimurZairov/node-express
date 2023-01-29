@@ -4,6 +4,7 @@ const MongoDbStore = require('connect-mongodb-session')(session)
 
 //middleware
 const varMiddleware = require('./middleware/variables')
+const userMiddleware = require('./middleware/user')
 
 //подключаем mongoose
 const mongoose = require('mongoose')
@@ -66,6 +67,7 @@ app.use(session({
 // variable.js
 //нужен для проверки зашел ли пользователь или нет express-session
 app.use(varMiddleware)
+app.use(userMiddleware)
 
 
 //render pages || routes register
