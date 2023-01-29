@@ -52,7 +52,7 @@ router.post('/', auth, async (req, res) => {
         })
         //сохраняем
         await order.save()
-        // очищаеми корзину
+        // очищаеми корзину метод модели USER
         await req.user.clearCart()
         res.redirect('/orders')
     }catch (e) {

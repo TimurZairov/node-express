@@ -3,14 +3,14 @@ const auth = require('../middleware/auth')
 const Course = require('../models/courses')
 const router = Router()
 
-//добавить курс
+//Все курсы
 router.get('/', auth, (req, res) => {
     res.render('add', {
         title: "Добавить курс",
         isAdd: true
     })
 })
-
+//Создать новый курс
 router.post('/', auth, async (req, res) => {
     // const course = new Course(req.body.title, req.body.price, req.body.img)
     const course = new Course({
