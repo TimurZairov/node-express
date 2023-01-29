@@ -6,6 +6,8 @@ const MongoDbStore = require('connect-mongodb-session')(session)
 const varMiddleware = require('./middleware/variables')
 const userMiddleware = require('./middleware/user')
 
+//connect-flash
+const flash = require('connect-flash')
 //подключаем mongoose
 const mongoose = require('mongoose')
 //плдключение handlebars
@@ -35,7 +37,7 @@ const hbs = exphbs.create({
     extname: 'hbs',
     handlebars: allowInsecurePrototypeAccess(Handlebars) // дает доступ handlebars рабоать данные котрые прохоядт через классовые компоненты
 })
-
+app.use(flash())
 // app engine to render
 app.engine('hbs', hbs.engine)
 app.set('view engine', 'hbs')

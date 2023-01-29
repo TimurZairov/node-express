@@ -7,7 +7,7 @@ const router = Router()
 router.get('/login', async (req, res) => {
     res.render('auth/login', {
         isLogin: true,
-        title: 'Войти'
+        title: 'Войти',
     })
 })
 //Выход со страницы
@@ -56,12 +56,11 @@ router.post('/register', async (req, res) => {
     try {
         const {email, password, confirm, name} = req.body
         //BCRYPT JS  шифруем пароль асинхронно
-        const salt = await bcrypt.hash(10, password)
-        //обязательно из email  делаем объект для посика иначе выдаст ошибку
+        const salt = await bcrypt.hash(password, 10)
+        // обязательно из email  делаем объект для посика иначе выдаст ошибку
         const candidate = await User.findOne({email})
         if(!candidate){
             //создаем новго пользователя с помощью new User({})
-
             const user = await new User({
                 email, password: salt, name, cart: {items: []}
             })
@@ -75,5 +74,4 @@ router.post('/register', async (req, res) => {
         console.log(e)
     }
 })
-
 module.exports = router
