@@ -12,11 +12,11 @@
                 <form class="col s12" action="/auth/login" method="post">
                     <div class="row">
                         <div class="input-field col s6 offset-s3">
-                            <input id="email" type="email" class="validate" required>
+                            <input id="email" name="email" type="email" class="validate" required>
                             <label for="email">Email</label>
                         </div>
                         <div class="input-field col s6 offset-s3">
-                            <input id="password" type="password" class="validate" required>
+                            <input id="password" name="password" type="password" class="validate" required>
                             <label for="password">Password</label>
                         </div>
                     </div>
@@ -32,16 +32,20 @@
                     <form class="col s12" action="/auth/register" method="post">
                         <div class="row">
                             <div class="input-field col s6 offset-s3">
-                                <input id="reg-email" type="email" class="validate" required>
+                                <input id="reg-email" name="email" type="email" class="validate" required>
                                 <label for="reg-email">Email</label>
                             </div>
                             <div class="input-field col s6 offset-s3">
-                                <input id="reg-password" type="password" class="validate" required>
+                                <input id="reg-password" name="password" type="password" class="validate" required>
                                 <label for="reg-password">Пароль</label>
                             </div>
                             <div class="input-field col s6 offset-s3">
-                                <input id="reg-confirm" type="password" class="validate" required>
+                                <input id="reg-confirm" name="confirm" type="password" class="validate" required>
                                 <label for="reg-confirm">Еще раз пароль</label>
+                            </div>
+                            <div class="input-field col s6 offset-s3">
+                                <input id="name" type="text" name="name" class="validate" required>
+                                <label for="name">Имя</label>
                             </div>
                         </div>
                         <button class="btn col s6 offset-s3" type="submit">Зарегистрироваться</button>
