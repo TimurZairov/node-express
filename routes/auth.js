@@ -8,6 +8,8 @@ router.get('/login', async (req, res) => {
     res.render('auth/login', {
         isLogin: true,
         title: 'Войти',
+        regError: req.flash('regError'),
+        logError: req.flash('logError')
     })
 })
 //Выход со страницы
@@ -42,9 +44,11 @@ router.post('/login', async (req, res) => {
                         res.redirect('/')
                     })
                 }else {
+                    await req.flash('logError', 'Введены не верные данные')
                     res.redirect('/auth/login')
                 }
         }else {
+            await req.flash('logError', 'Введены не верные данные')
             res.redirect('/auth/login')
         }
     }catch (e) {
@@ -68,6 +72,7 @@ router.post('/register', async (req, res) => {
             await user.save()
             res.redirect('/auth/login')
         }else {
+            await req.flash('regError', 'Такой email уже существует')
             res.redirect('/auth/login#register')
         }
     }catch (e){

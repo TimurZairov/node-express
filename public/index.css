@@ -9,3 +9,11 @@
 .m-t-20 {
     margin-top: 20px;
 }
+
+.alert {
+    margin: 30px auto;
+    text-align: center;
+    background: rgba(255, 0, 0, 0.3);
+    color: red;
+    padding: 5px;
+}
