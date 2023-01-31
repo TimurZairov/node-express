@@ -1,8 +1,14 @@
 const {Router, response} = require('express')
 const bcrypt = require('bcryptjs')
+const main = require('../mailer/nodemailer')
 
 const User = require('../models/user')
 const router = Router()
+
+
+
+
+
 //страница Логина
 router.get('/login', async (req, res) => {
     res.render('auth/login', {
@@ -69,8 +75,9 @@ router.post('/register', async (req, res) => {
                 email, password: salt, name, cart: {items: []}
             })
             //не забудь сохраняем через методы нового объекта
-            await user.save()
+            // await user.save()
             res.redirect('/auth/login')
+            main(email).catch(console.error)
         }else {
             await req.flash('regError', 'Такой email уже существует')
             res.redirect('/auth/login#register')

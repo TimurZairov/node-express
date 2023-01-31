@@ -1,6 +1,7 @@
 const express = require('express')
 const session = require('express-session')
 const MongoDbStore = require('connect-mongodb-session')(session)
+const keys = require('./keys')
 
 //middleware
 const varMiddleware = require('./middleware/variables')
@@ -27,9 +28,6 @@ const cartRoutes = require('./routes/cart')
 const authRotes = require('./routes/auth')
 
 const app = express()
-//const pass and uri
-const password = 12512500
-const MONGODB_URI = `mongodb+srv://admin:${password}@cluster0.rociosw.mongodb.net/shop`
 
 //config handlebars | layout and ext.name "hbs"
 const hbs = exphbs.create({
@@ -51,7 +49,7 @@ app.use(express.urlencoded({extended: true}))
 //MONGODB STORE
 //создаем store с параметрами
 const store = new MongoDbStore({
-    uri: MONGODB_URI,
+    uri: keys.MONGODB_URI,
     collation: 'session'
 })
 // ловим ошибку если что
@@ -85,7 +83,7 @@ const PORT = process.env.PORT || 3000
 //подключить функцию старт promise
 async function start() {
     try {
-        await mongoose.connect(MONGODB_URI, {
+        await mongoose.connect(keys.MONGODB_URI, {
             useNewUrlParser: true,
         })
         app.listen(PORT, () => {
