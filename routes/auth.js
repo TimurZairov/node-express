@@ -1,5 +1,6 @@
-const {Router, response} = require('express')
+const {Router} = require('express')
 const bcrypt = require('bcryptjs')
+const crypto = require('crypto')
 const main = require('../mailer/nodemailer')
 
 const User = require('../models/user')
@@ -75,7 +76,7 @@ router.post('/register', async (req, res) => {
                 email, password: salt, name, cart: {items: []}
             })
             //не забудь сохраняем через методы нового объекта
-            // await user.save()
+            await user.save()
             res.redirect('/auth/login')
             main(email).catch(console.error)
         }else {
@@ -86,4 +87,41 @@ router.post('/register', async (req, res) => {
         console.log(e)
     }
 })
+
+//Восстановить пароль страницы
+router.get('/reset', (req, res) => {
+    res.render('auth/reset', {
+        title: 'Восстановить пароль',
+        error: req.flash('error'),
+
+    })
+})
+
+//Восстановить пароль POST
+router.post('/reset', (req, res) => {
+    //библиотек node для генерации нового кода
+    try {
+        crypto.randomBytes(32, async (err, buffer) => {
+            if(err){
+                req.flash('error', 'Что то пошло не так, попробуйте снова...')
+                return res.redirect('auth/reset')
+            }
+            // что бы извлечь из buffer делаем toString
+            const token = buffer.toString('hex')
+            //проверям если ли такая почта в базе
+           const candidate = await User.findOne(req.body)
+            if(candidate) {
+                //высылаем ссылку и на восстановление
+
+            }else {
+                req.flash('error', 'Такой почты не существует в базе')
+                return res.redirect('/auth/reset')
+            }
+        })
+    }catch (e){
+        console.log(e)
+    }
+
+})
+
 module.exports = router

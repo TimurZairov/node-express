@@ -1,7 +1,7 @@
-const nodemailer = require('nodemailer')
 const keys = require('../keys')
+const nodemailer = require("./nodemailer");
 
-module.exports = async function main(email) {
+module.exports = async function resetPass(email) {
 
     let transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -15,7 +15,6 @@ module.exports = async function main(email) {
         }
     });
 
-    // send mail with defined transport object
     let info = await transporter.sendMail({
         from: 'zairovne@gmail.com', // sender address
         to: email, // list of receivers
@@ -23,7 +22,4 @@ module.exports = async function main(email) {
         text: "Hello world?", // plain text body
         html: "<b>Hello world?</b>", // html body
     });
-
-    // console.log(info)
-    // console.log("Message sent: %s", info.messageId);
 }

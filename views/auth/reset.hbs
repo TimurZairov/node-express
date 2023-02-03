@@ -1,0 +1,23 @@
+<div class="row">
+    <div class="m-t-20">
+        <!--        Login-->
+        <div id="login" class="col s12">
+            <div class="row">
+                {{#if error}}
+                    <p class="alert col s6 offset-s3">{{error}}</p>
+                {{/if}}
+                <form class="col s12" action="/auth/reset" method="post">
+                    <p class="col s6 offset-s3">Восстановать пароль</p>
+                    <div class="row">
+                        <div class="input-field col s6 offset-s3">
+                            <input id="email" name="email" type="email" class="validate" required>
+                            <label for="email">Введите ваш email</label>
+                        </div>
+                        <div class="col s6 offset-s3"><a href="/auth/login#login">Назад</a></div>
+                    </div>
+                    <button class="btn col s6 offset-s3" type="submit">Восстановить пароль</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
