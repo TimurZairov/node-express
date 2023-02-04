@@ -6,7 +6,8 @@ module.exports = {
     MAIL_PASSWORD: '27245545b',
     AUTH_CODE: '4/0AWtgzh4IEF6Pt5FTgGUtQugcwEEBQqZDpe3IBcNXWYdAyeXHvAnchZksk_qFabFHhdwFSw',
     ACCESS_TOKEN: 'ya29.a0AVvZVsoRs8ucDzPk3cRnkab95Ba0BdLJ7Jboyp_m4CijxuC-kGZJSafatlg8fKW3VVuGBg67ZvLXINIM4clR64LikbKrdBjuR8DTNUZ_RLyjLNxaoQMGs1MaC7pZc8fr3yPWYfeElD6GuO51Wl8w6DRy8FXDaCgYKAR8SARISFQGbdwaIBx5drNKkCVGMVlcekDEiSQ0163',
-    REFRESH_TOKEN: '1//043emPAvCy5FICgYIARAAGAQSNwF-L9IripxBY-us_yI021YCqb--1lPPDCNcI-Vhpj_UktW0v3YTZnkNFcBs8j9EdYN2ng5hBII'
+    REFRESH_TOKEN: '1//043emPAvCy5FICgYIARAAGAQSNwF-L9IripxBY-us_yI021YCqb--1lPPDCNcI-Vhpj_UktW0v3YTZnkNFcBs8j9EdYN2ng5hBII',
+    BASE_URL: 'http://localhost:3000'
 }
 
 //https://translated.turbopages.org/proxy_u/en-ru.ru.ac7b5b03-63d8c7da-4b18e28d-74722d776562/https/www.freecodecamp.org/news/use-nodemailer-to-send-emails-from-your-node-js-server/ doc

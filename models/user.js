@@ -8,6 +8,8 @@ const userSchema = new Schema({
     name: {
         type: String
     },
+    resetToken: String,
+    resetTokenExp: Date,
     password: {
         type: String,
         required: true

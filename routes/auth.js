@@ -1,7 +1,8 @@
 const {Router} = require('express')
 const bcrypt = require('bcryptjs')
 const crypto = require('crypto')
-const main = require('../mailer/nodemailer')
+const {main, resetPass} = require('../mailer/nodemailer')
+
 
 const User = require('../models/user')
 const router = Router()
@@ -97,6 +98,37 @@ router.get('/reset', (req, res) => {
     })
 })
 
+//Страница восстановления паролья
+router.get('/password/:token', async (req, res) => {
+    if(!req.params.token) {
+        res.redirect('auth/login#login')
+    }
+    const token = req.params.token
+    try {
+        // Ищем пользователя по токену
+        const user = await User.findOne({
+            resetToken: token,
+            resetTokenExp: {$gt: Date.now()}
+        })
+
+        if(!user) {
+            return res.redirect('/auth/login')
+        }else {
+            res.render('auth/password', {
+                title: 'Восстановление пароля',
+                error: req.flash('error'),
+                userId: user?._id.toString(),
+                token: token
+            })
+        }
+
+    }catch (e) {
+        console.log(e)
+    }
+
+})
+
+
 //Восстановить пароль POST
 router.post('/reset', (req, res) => {
     //библиотек node для генерации нового кода
@@ -111,7 +143,14 @@ router.post('/reset', (req, res) => {
             //проверям если ли такая почта в базе
            const candidate = await User.findOne(req.body)
             if(candidate) {
+                //добавляем кондидату в модель User доп поля токен и время жизни токена
+                candidate.resetToken = token
+                candidate.resetTokenExp = Date.now() + 60 * 60 * 1000
+                //пересохраняем кандидата а базу
+                await candidate.save()
                 //высылаем ссылку и на восстановление
+                resetPass(candidate?.email, token).catch(console.error)
+                res.redirect('/auth/login#login')
 
             }else {
                 req.flash('error', 'Такой почты не существует в базе')
