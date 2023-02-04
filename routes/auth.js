@@ -98,7 +98,7 @@ router.get('/reset', (req, res) => {
     })
 })
 
-//Страница восстановления паролья
+//Страница восстановления паролья c токеном
 router.get('/password/:token', async (req, res) => {
     if(!req.params.token) {
         res.redirect('auth/login#login')
@@ -129,7 +129,7 @@ router.get('/password/:token', async (req, res) => {
 })
 
 
-//Восстановить пароль POST
+//Восстановить пароль POST для отправки на почту
 router.post('/reset', (req, res) => {
     //библиотек node для генерации нового кода
     try {
@@ -161,6 +161,33 @@ router.post('/reset', (req, res) => {
         console.log(e)
     }
 
+})
+
+router.post('/password', async (req, res) => {
+    console.log(req.body)
+    try {
+        //ищем по данным параметрам И по жизни токена $gt значит больше чем
+        const user = await User.findOne({
+            _id: req.body.userId,
+            resetToken: req.body.token,
+            resetTokenExp: {$gt: Date.now()}
+            //https://metanit.com/nosql/mongodb/2.8.php почитать где больше и меньше в монго
+        })
+        if(!user) {
+            req.flash('error', 'Ссылка была действительна 1 час, попробуйте снова')
+            res.redirect('/auth/login')
+        }else {
+            //меняем данные и сохраняем. Для криптования делаем await что бы пароль зашифровался
+            user.password = await bcrypt.hash(req.body.password, 10)
+            user.resetToken = undefined
+            user.resetTokenExp = undefined
+            await user.save()
+            res.redirect('/auth/login')
+        }
+        console.log(user)
+    }catch (e) {
+        console.log(e)
+    }
 })
 
 module.exports = router
